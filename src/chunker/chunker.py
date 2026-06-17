@@ -1,11 +1,13 @@
-from xml.dom.minidom import Document
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
 
 class Chunker:
     @staticmethod
-    def divide_to_chunks(document: Document):
-        return RecursiveCharacterTextSplitter(
-            chunk_size=100,
-            chunk_overlap=20,
+    def divide_to_chunks(documents):
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=500,
+            chunk_overlap=50,
             length_function=len,
-        ).create_documents(document)
+        )
+
+        return text_splitter.split_documents(documents)
